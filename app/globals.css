@@ -1,0 +1,591 @@
+:root {
+  color-scheme: light;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #fdf6e3 0%, #f3e2bd 45%, #d7c39d 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 4rem 1.5rem 3rem;
+}
+
+.scene {
+  position: relative;
+  width: min(90vw, 720px);
+  height: min(90vw, 460px);
+  border-radius: 32px;
+  background: linear-gradient(180deg, rgba(167, 210, 255, 0.95) 0%, #b0e0ff 50%, #90c965 50.1%, #7ab653 100%);
+  overflow: hidden;
+  box-shadow: 0 28px 60px rgba(29, 54, 40, 0.25);
+}
+
+.background,
+.foreground {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sun {
+  position: absolute;
+  top: 28px;
+  left: 42px;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff7d6 0%, #ffeb91 50%, #f8d255 100%);
+  animation: sunPulse 6s ease-in-out infinite;
+}
+
+@keyframes sunPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(255, 234, 138, 0.65));
+  }
+  50% {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 36px rgba(255, 234, 138, 0.8));
+  }
+}
+
+.cloud {
+  position: absolute;
+  top: 70px;
+  width: 160px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  filter: blur(0.2px);
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: inherit;
+}
+
+.cloud::before {
+  width: 90px;
+  height: 90px;
+  top: -35px;
+  left: 20px;
+}
+
+.cloud::after {
+  width: 110px;
+  height: 80px;
+  top: -25px;
+  right: 15px;
+}
+
+.cloud-1 {
+  left: 55%;
+  animation: floatCloud 18s linear infinite;
+}
+
+.cloud-2 {
+  top: 120px;
+  left: 15%;
+  width: 120px;
+  animation: floatCloud 22s linear infinite reverse;
+}
+
+.cloud-3 {
+  top: 40px;
+  left: 75%;
+  width: 180px;
+  animation: floatCloud 26s linear infinite;
+}
+
+@keyframes floatCloud {
+  0% {
+    transform: translateX(-12px);
+  }
+  50% {
+    transform: translateX(12px);
+  }
+  100% {
+    transform: translateX(-12px);
+  }
+}
+
+.foreground {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 3rem 2.5rem;
+}
+
+.grass {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 130px;
+  background: linear-gradient(180deg, rgba(112, 169, 70, 0.95) 0%, rgba(82, 125, 53, 0.95) 100%);
+  clip-path: polygon(0 40%, 5% 50%, 10% 40%, 15% 52%, 20% 42%, 25% 55%, 30% 43%, 35% 58%, 40% 45%, 45% 60%, 50% 46%, 55% 57%, 60% 44%, 65% 55%, 70% 41%, 75% 54%, 80% 42%, 85% 52%, 90% 40%, 95% 50%, 100% 38%, 100% 100%, 0 100%);
+  opacity: 0.9;
+}
+
+.grass-2 {
+  height: 105px;
+  opacity: 0.75;
+  filter: brightness(1.08);
+  animation: sway 5s ease-in-out infinite;
+}
+
+.grass-3 {
+  height: 145px;
+  opacity: 0.6;
+  filter: brightness(0.92);
+  animation: sway 6.5s ease-in-out infinite reverse;
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: skewX(-0.3deg);
+  }
+  50% {
+    transform: skewX(0.3deg);
+  }
+}
+
+.carpenter {
+  position: absolute;
+  bottom: 120px;
+  left: 50%;
+  width: 180px;
+  height: 280px;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  animation: walkCycle 9s ease-in-out infinite;
+}
+
+.shadow {
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  width: 200px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 50%;
+  filter: blur(12px);
+  transform: translateX(-50%);
+  animation: shadowPulse 0.9s ease-in-out infinite;
+}
+
+@keyframes shadowPulse {
+  0%,
+  100% {
+    transform: translateX(-50%) scaleX(1);
+    opacity: 0.14;
+  }
+  50% {
+    transform: translateX(-50%) scaleX(1.08);
+    opacity: 0.2;
+  }
+}
+
+.head {
+  position: absolute;
+  top: 26px;
+  width: 90px;
+  height: 90px;
+  border-radius: 46px;
+  background: #f0c598;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-10px);
+}
+
+.cap {
+  position: absolute;
+  top: -18px;
+  width: 94px;
+  height: 54px;
+  background: #31527a;
+  border-radius: 50% 50% 0 0;
+}
+
+.cap-visor {
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  width: 70px;
+  height: 24px;
+  background: #2b4867;
+  border-radius: 0 0 24px 24px;
+  transform: translateX(-50%);
+}
+
+.eye {
+  position: absolute;
+  top: 40px;
+  width: 10px;
+  height: 16px;
+  border-radius: 5px;
+  background: #2d2b2a;
+}
+
+.eye-left {
+  left: 29px;
+}
+
+.eye-right {
+  right: 29px;
+}
+
+.beard {
+  position: absolute;
+  bottom: -4px;
+  width: 70px;
+  height: 32px;
+  background: #a56741;
+  border-radius: 0 0 40px 40px;
+}
+
+.torso {
+  position: absolute;
+  top: 95px;
+  width: 120px;
+  height: 130px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #f5a25b 0%, #da7f37 100%);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.strap {
+  position: absolute;
+  width: 16px;
+  height: 140px;
+  background: linear-gradient(180deg, #2d3f52 0%, #192634 100%);
+  top: -35px;
+  border-radius: 12px;
+}
+
+.strap-left {
+  left: 22px;
+}
+
+.strap-right {
+  right: 22px;
+}
+
+.belt {
+  position: absolute;
+  bottom: 28px;
+  width: 120px;
+  height: 38px;
+  background: linear-gradient(180deg, #3b2a19 0%, #271a11 100%);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 12px;
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.tool {
+  background: #d3a152;
+  border-radius: 4px;
+  position: relative;
+}
+
+.tool::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.tool.hammer {
+  width: 26px;
+  height: 46px;
+}
+
+.tool.hammer::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: -6px;
+  width: 40px;
+  height: 12px;
+  background: #323232;
+  border-radius: 6px;
+}
+
+.tool.screwdriver {
+  width: 14px;
+  height: 36px;
+}
+
+.tool.screwdriver::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 16px;
+  background: #ffd27f;
+  border-radius: 3px;
+}
+
+.tool.chisel {
+  width: 18px;
+  height: 34px;
+}
+
+.tool.chisel::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 10px;
+  background: linear-gradient(180deg, #e1e3e6 0%, #b6bcc2 100%);
+  border-radius: 3px 3px 1px 1px;
+}
+
+.arm {
+  position: absolute;
+  top: 126px;
+  width: 34px;
+  height: 110px;
+  transform-origin: top center;
+  display: flex;
+  justify-content: center;
+}
+
+.arm-left {
+  left: 16px;
+  animation: armSwingBack 0.9s ease-in-out infinite;
+}
+
+.arm-right {
+  right: 16px;
+  animation: armSwingFront 0.9s ease-in-out infinite;
+}
+
+.forearm {
+  position: absolute;
+  top: 48px;
+  width: 28px;
+  height: 74px;
+  background: linear-gradient(180deg, #f2caa0 0%, #e0a977 100%);
+  border-radius: 18px;
+  transform-origin: top center;
+}
+
+.arm-left .forearm {
+  transform: rotate(-18deg);
+}
+
+.arm-right .forearm {
+  transform: rotate(38deg);
+}
+
+.hand {
+  position: absolute;
+  bottom: -18px;
+  width: 36px;
+  height: 26px;
+  background: #edbd86;
+  border-radius: 16px;
+  box-shadow: inset 0 -4px rgba(0, 0, 0, 0.15);
+}
+
+.hand-support {
+  transform: rotate(-14deg);
+}
+
+.leg {
+  position: absolute;
+  top: 206px;
+  width: 40px;
+  height: 140px;
+  transform-origin: top center;
+}
+
+.leg-left {
+  left: 32px;
+  animation: legForward 0.9s ease-in-out infinite;
+}
+
+.leg-right {
+  right: 32px;
+  animation: legBackward 0.9s ease-in-out infinite;
+}
+
+.calf {
+  position: absolute;
+  top: 70px;
+  width: 34px;
+  height: 88px;
+  background: linear-gradient(180deg, #2d3f52 0%, #192f41 100%);
+  border-radius: 18px;
+  transform-origin: top center;
+}
+
+.boot {
+  position: absolute;
+  bottom: -8px;
+  width: 60px;
+  height: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #2b1d12 0%, #1d120a 100%);
+  border-radius: 12px 12px 6px 6px;
+}
+
+.wood {
+  position: absolute;
+  top: 90px;
+  left: 50%;
+  width: 220px;
+  height: 36px;
+  background: linear-gradient(90deg, #c68e45 0%, #a36a2e 50%, #c68e45 100%);
+  border-radius: 12px;
+  transform-origin: left center;
+  transform: translateX(-50%) rotate(-12deg);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.2);
+  animation: woodBob 0.9s ease-in-out infinite;
+}
+
+.wood::before,
+.wood::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  width: 36px;
+  height: 16px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.wood::before {
+  left: 38px;
+}
+
+.wood::after {
+  right: 26px;
+}
+
+@keyframes legForward {
+  0%,
+  100% {
+    transform: rotate(16deg);
+  }
+  50% {
+    transform: rotate(-14deg);
+  }
+}
+
+@keyframes legBackward {
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+  50% {
+    transform: rotate(20deg);
+  }
+}
+
+@keyframes armSwingBack {
+  0%,
+  100% {
+    transform: rotate(-18deg);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
+}
+
+@keyframes armSwingFront {
+  0%,
+  100% {
+    transform: rotate(20deg);
+  }
+  50% {
+    transform: rotate(-12deg);
+  }
+}
+
+@keyframes woodBob {
+  0%,
+  100% {
+    transform: translateX(-50%) rotate(-11deg);
+  }
+  50% {
+    transform: translateX(-50%) rotate(-14deg);
+  }
+}
+
+@keyframes walkCycle {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-48%, -2px);
+  }
+}
+
+.caption {
+  font-size: 1.125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #3b4a2e;
+  font-weight: 600;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .scene {
+    height: 360px;
+  }
+
+  .carpenter {
+    transform: translateX(-50%) scale(0.85);
+    transform-origin: bottom center;
+  }
+
+  .caption {
+    font-size: 1rem;
+  }
+}
